@@ -64,8 +64,8 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
 '''.split('\n')
 
 import re
-HCL = re.compile('#[a-f0-9]{6}')
-PID = re.compile('[0-9]{9}')
+HCL = re.compile('^#[a-f0-9]{6}$')
+PID = re.compile('^[0-9]{9}$')
 
 def part2(data):
     nr_valid = 0
@@ -84,9 +84,9 @@ def part2(data):
                         if 2020 <= int(current['eyr']) <= 2030:
                             if (current['hgt'][-2:] == 'cm' and 150 <= int(current['hgt'][:-2]) <= 193) or\
                                (current['hgt'][-2:] == 'in' and 59 <= int(current['hgt'][:-2]) <= 76):
-                                if HCL.match(current['hcl']) and len(current['hcl']) == 7:
+                                if HCL.match(current['hcl']):
                                     if current['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
-                                        if PID.match(current['pid']) and len(current['pid']) == 9:
+                                        if PID.match(current['pid']):
                                             nr_valid += 1
             current = dict()
     return nr_valid
