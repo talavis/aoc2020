@@ -11,20 +11,15 @@ while is_sum(pos, data):
     pos += 1
 print(data[pos])
 
-for i in range(pos):
-    j = i
-    valsum = 0
-    minnum=data[j]
-    maxnum=data[j]
+i = 0
+j = i
+valsum = 0
+while valsum != data[pos]:
     while valsum < data[pos]:
         valsum += data[j]
-        if data[j] > maxnum:
-            maxnum = data[j]
-        elif data[j] < minnum:
-            minnum = data[j]
         j += 1
-    if valsum == data[pos]:
-        print(maxnum+minnum)
-        break
+    while valsum > data[pos]:
+        valsum -= data[i]
+        i += 1
 
-
+print(max(data[i:j])+min(data[i:j]))
