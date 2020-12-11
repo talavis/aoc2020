@@ -24,28 +24,32 @@ def part1(data):
     def find_nearby(r, c):
         return [data[entry[0]][entry[1]] for entry in neighbours[(r, c)]].count('#')
 
-    def step(data):
-        new_data = copy.deepcopy(data)
+    def step(data, new_data):
         for i in range(len(data)):
             for j in range(len(data[0])):
                 if data[i][j] != '.':
                     occupied = find_nearby(i, j)
-                    if data[i][j] == 'L' and not occupied:
-                        new_data[i][j] = '#'
+                    if data[i][j] == 'L':
+                        if not occupied:
+                            new_data[i][j] = '#'
+                        else:
+                            new_data[i][j] = 'L'
                     elif data[i][j] == '#':
                         if occupied >= 4:
                             new_data[i][j] = 'L'
-        return new_data
+                        else:
+                            new_data[i][j] = '#'
 
     neighbours = {}
     for i in range(len(data)):
         for j in range(len(data[0])):
             neighbours[(i, j)] = find_neighbours(i, j)
 
-    old_data = [['']]
-    while not same(data, old_data):
-        old_data = data
-        data = step(data)
+    data2 = copy.deepcopy(data)
+    step(data, data2)
+    while not same(data, data2):
+        step(data, data2)
+        data2, data = data, data2
 
     taken_seats = 0
     for row in data:
@@ -77,33 +81,51 @@ def part2(data):
     def find_nearby(r, c):
         return [data[entry[0]][entry[1]] for entry in neighbours[(r, c)]].count('#')
     
-    def step(data):
-        new_data = copy.deepcopy(data)
+    def step(data, new_data):
         for i in range(len(data)):
             for j in range(len(data[0])):
                 if data[i][j] != '.':
                     occupied = find_nearby(i, j)
-                    if data[i][j] == 'L' and not occupied:
-                        new_data[i][j] = '#'
+                    if data[i][j] == 'L':
+                        if not occupied:
+                            new_data[i][j] = '#'
+                        else:
+                            new_data[i][j] = 'L'
                     elif data[i][j] == '#':
                         if occupied >= 5:
                             new_data[i][j] = 'L'
-        return new_data
+                        else:
+                            new_data[i][j] = '#'
     
     neighbours = {}
     for i in range(len(data)):
         for j in range(len(data[0])):
             neighbours[(i, j)] = find_neighbours(i, j)
 
-    old_data = [['']]
-    while not same(data, old_data):
-        old_data = data
-        data = step(data)
+    data2 = copy.deepcopy(data)
+    step(data, data2)
+    while not same(data, data2):
+        step(data, data2)
+        data2, data = data, data2
+
     taken_seats = 0
     for row in data:
         taken_seats += row.count('#')
     return taken_seats
 
+
+test_data = [list(row) for row in '''L.LL.LL.LL
+LLLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLLL
+L.LLLLLL.L
+L.LLLLL.LL'''.split('\n')]
+
+#print(part1(test_data))
 
 data = [list(val) for val in open('11.txt').read().split('\n') if val]
 
@@ -115,6 +137,8 @@ for i in range(5):
     times.append((start, stop))
 print(f'Part 1: {res}')
 print(f'Average for {i+1} runs: {sum(e[1] - e[0] for e in times)/len(times)}')
+
+data = [list(val) for val in open('11.txt').read().split('\n') if val]
 
 times = []
 for i in range(5):
