@@ -45,8 +45,8 @@ def part2(data):
             ygoal = tmp*math.sin(math.radians(ins[1]))+ygoal*math.cos(math.radians(ins[1]))
         elif ins[0] == 'R':
             tmp = xgoal
-            xgoal = xgoal*math.cos(math.radians(360-ins[1]))-ygoal*math.sin(math.radians(360-ins[1]))
-            ygoal = tmp*math.sin(math.radians(360-ins[1]))+ygoal*math.cos(math.radians(360-ins[1]))
+            xgoal = xgoal*math.cos(math.radians(-ins[1]))-ygoal*math.sin(math.radians(-ins[1]))
+            ygoal = tmp*math.sin(math.radians(-ins[1]))+ygoal*math.cos(math.radians(-ins[1]))
         elif ins[0] == 'F':
             xpos += ins[1]*xgoal
             ypos += ins[1]*ygoal
