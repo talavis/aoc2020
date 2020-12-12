@@ -40,29 +40,13 @@ def part2(data):
         elif ins[0] == 'W':
             xgoal -= ins[1]
         elif ins[0] == 'L':
-            if ins[1] == 270:
-                tmp = xgoal
-                xgoal = ygoal
-                ygoal = -tmp
-            elif ins[1] == 180:
-                xgoal = -xgoal
-                ygoal = -ygoal                
-            elif ins[1] == 90:
-                tmp = xgoal
-                xgoal = -ygoal
-                ygoal = tmp
+            tmp = xgoal
+            xgoal = xgoal*math.cos(math.radians(ins[1]))-ygoal*math.sin(math.radians(ins[1]))
+            ygoal = tmp*math.sin(math.radians(ins[1]))+ygoal*math.cos(math.radians(ins[1]))
         elif ins[0] == 'R':
-            if ins[1] == 90:
-                tmp = xgoal
-                xgoal = ygoal
-                ygoal = -tmp
-            elif ins[1] == 180:
-                xgoal = -xgoal
-                ygoal = -ygoal                
-            elif ins[1] == 270:
-                tmp = xgoal
-                xgoal = -ygoal
-                ygoal = tmp
+            tmp = xgoal
+            xgoal = xgoal*math.cos(math.radians(360-ins[1]))-ygoal*math.sin(math.radians(360-ins[1]))
+            ygoal = tmp*math.sin(math.radians(360-ins[1]))+ygoal*math.cos(math.radians(360-ins[1]))
         elif ins[0] == 'F':
             xpos += ins[1]*xgoal
             ypos += ins[1]*ygoal
@@ -79,5 +63,5 @@ F11'''.split('\n')]
 #print(part1(test_data))
 #print(part2(test_data))
 
-print(part1(data))
-print(part2(data))
+print(round(part1(data)))
+print(round(part2(data)))
