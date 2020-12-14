@@ -40,8 +40,6 @@ for i in range(5):
 print(f'Part 1: {res}')
 print(f'Average for {i+1} runs: {sum(e[1] - e[0] for e in times)/len(times)}')
 
-data = [list(val) for val in open('11.txt').read().split('\n') if val]
-
 times = []
 for i in range(5):
     start = time.time()
