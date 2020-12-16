@@ -71,7 +71,6 @@ def part2(field_names, fields, ticket, others, test=False):
             prod *= ticket[field_pos[name]]
     return prod
 
-data = list(parser(open('16.txt')))
 
 tmpfile = tempfile.mkstemp()[1]
 open(tmpfile, 'w').write('''class: 1-3 or 5-7
@@ -111,6 +110,10 @@ test_data2 = list(parser(open(tmpfile)))
 test_res2 = part2(*test_data2, test=True)
 print(f'Test for part 2 passed: {test_res2 == 12*11*13}')
 print()
+
+#########
+
+data = list(parser(open('16.txt')))
 
 times = []
 for i in range(5):
