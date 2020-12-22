@@ -51,9 +51,6 @@ def part1(tiles):
         return ''.join([row[-1] for row in tile])
 
     def rec(added, pos):
-#        print(' '*pos, added)
-#        if existing:
-#            print('\n'.join([' '*pos + ''.join(row) for row in existing[-1]]))
         if len(added) == len(choices):
             return True
 
@@ -121,11 +118,6 @@ def part1(tiles):
     rec(added, 0)
     return added[0] * added[side_len-1] * added[len(added)-side_len] * added[len(added)-1], added, existing
 
-"""
-                  # 
-#    ##    ##    ###
- #  #  #  #  #  #   
-"""
 def part2(matrix):
     def rotate(tile):
         return [''.join(ele) for ele in zip(*tile[::-1])]
@@ -161,13 +153,6 @@ test_matrix = build_image(test_res[2])
 print(f'Test for part 2 passed: {part2(test_matrix) == 273}')
 
 data = parser(open('20.txt'))
-res = part1(data)
-print(res[0])
-data_matrix = build_image(res[2])
-print(part2(data_matrix))
-
-import sys
-sys.exit(1)
 
 times = []
 for i in range(5):
@@ -178,10 +163,12 @@ for i in range(5):
 print(f'Part 1: {res[0]}')
 print(f'Average for {i+1} runs: {sum(e[1] - e[0] for e in times)/len(times):e}s')
 
+data_matrix = build_image(res[2])
+
 times = []
 for i in range(5):
     start = time.time()
-    res = part2(data)
+    res = part2(data_matrix)
     stop = time.time()
     times.append((start, stop))
 print(f'Part 2: {res}')
