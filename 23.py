@@ -18,11 +18,10 @@ def simulate(current, cups_map, steps):
 
 
 def part1(data):
-    cups_map = {}
+    cups_map = [0]*(len(data)+1)  # 0 as well
     cups_map[data[-1]] = data[0]
-    for i in range(0, len(data)-1):
+    for i in range(len(data)-1):
         cups_map[data[i]] = data[i+1]
-
     new_map = simulate(data[0], cups_map, 100)
 
     current = new_map[1]
@@ -34,7 +33,7 @@ def part1(data):
 
 
 def part2(data):
-    cups_map = {}
+    cups_map = [0]*1_000_001
     # cyclic
     cups_map[1_000_000] = data[0]
     # defined
@@ -53,7 +52,7 @@ def part2(data):
 
 
 test_data = [int(nr) for nr in '389125467']
-print(f'Test for part 1 passed (100): {part1(test_data) == "67384529"}')
+print(f'Test for part 1 passed: {part1(test_data) == "67384529"}')
 print(f'Test for part 2 passed: {part2(test_data) == 149245887792}')
 
 data = [int(nr) for nr in '193467258']
@@ -65,7 +64,7 @@ for i in range(5):
     stop = time.time()
     times.append((start, stop))
 print(f'Part 1: {res}')
-print(f'Average for {i+1} runs: {sum(e[1] - e[0] for e in times)/len(times):e}s')
+print(f'Average for {i+1} runs: {sum(e[1] - e[0] for e in times)/len(times):.2e}s')
 
 times = []
 for i in range(5):
@@ -74,4 +73,4 @@ for i in range(5):
     stop = time.time()
     times.append((start, stop))
 print(f'Part 2: {res}')
-print(f'Average for {i+1} runs: {sum(e[1] - e[0] for e in times)/len(times):e}s')
+print(f'Average for {i+1} runs: {sum(e[1] - e[0] for e in times)/len(times):.2e}s')
